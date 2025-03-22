@@ -1,83 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Matrix Style Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+      @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
-        body {
-            @apply h-screen bg-black text-green-500 overflow-hidden;
-            font-family: 'Press Start 2P', cursive;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+      body {
+        @apply h-screen bg-black text-green-500 overflow-hidden;
+        font-family: "Press Start 2P", cursive;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-        .matrix-animation {
-            @apply absolute top-0 left-0 w-full h-full overflow-hidden -z-10;
-        }
+      .matrix-animation {
+        @apply absolute top-0 left-0 w-full h-full overflow-hidden -z-10;
+      }
 
-        canvas {
-            @apply block;
-        }
+      canvas {
+        @apply block;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="matrix-animation">
-        <canvas id="matrix"></canvas>
+      <canvas id="matrix"></canvas>
     </div>
     <div class="flex items-center justify-center h-screen w-full">
-        <div class="flex flex-col items-center justify-center bg-black bg-opacity-90 border-2 border-green-500 p-6 rounded-lg shadow-xl max-w-md w-full">
-            <h1 class="mb-6 text-2xl text-green-500 drop-shadow">Matrix Login</h1>
-            <input class="w-full p-2 mb-4 border-2 border-green-500 rounded bg-black text-green-500 text-sm drop-shadow focus:outline-none focus:ring-2 focus:ring-green-500" type="text" placeholder="Username">
-            <input class="w-full p-2 mb-4 border-2 border-green-500 rounded bg-black text-green-500 text-sm drop-shadow focus:outline-none focus:ring-2 focus:ring-green-500" type="password" placeholder="Password">
-            <button class="w-full px-4 py-2 bg-green-500 text-black rounded text-sm drop-shadow hover:bg-green-400 transition">Login</button>
-        </div>
+      <div
+        class="flex flex-col items-center justify-center bg-black bg-opacity-90 border-2 border-green-500 p-6 rounded-lg shadow-xl max-w-md w-full"
+      >
+        <h1 class="mb-6 text-2xl text-green-500 drop-shadow">Matrix Login</h1>
+        <input
+          class="w-full p-2 mb-4 border-2 border-green-500 rounded bg-black text-green-500 text-sm drop-shadow focus:outline-none focus:ring-2 focus:ring-green-500"
+          type="text"
+          placeholder="Username"
+        />
+        <input
+          class="w-full p-2 mb-4 border-2 border-green-500 rounded bg-black text-green-500 text-sm drop-shadow focus:outline-none focus:ring-2 focus:ring-green-500"
+          type="password"
+          placeholder="Password"
+        />
+        <button
+          class="w-full px-4 py-2 bg-green-500 text-black rounded text-sm drop-shadow hover:bg-green-400 transition"
+        >
+          Login
+        </button>
+      </div>
     </div>
 
     <script>
-        const canvas = document.getElementById('matrix');
-        const ctx = canvas.getContext('2d');
+      const canvas = document.getElementById("matrix");
+      const ctx = canvas.getContext("2d");
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
 
-        canvas.style.position = 'absolute';
-        canvas.style.top = '0';
-        canvas.style.left = '0';
-        canvas.style.zIndex = '-1';  // Garante que o canvas fica atrás do conteúdo
+      canvas.style.position = "absolute";
+      canvas.style.top = "0";
+      canvas.style.left = "0";
+      canvas.style.zIndex = "-1"; // Garante que o canvas fica atrás do conteúdo
 
-        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%';
-        const fontSize = 16;
-        const columns = canvas.width / fontSize;
+      const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%";
+      const fontSize = 16;
+      const columns = canvas.width / fontSize;
 
-        const drops = Array(Math.floor(columns)).fill(1);
+      const drops = Array(Math.floor(columns)).fill(1);
 
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+      function drawMatrix() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.fillStyle = '#00ff00';
-            ctx.font = fontSize + 'px monospace';
+        ctx.fillStyle = "#00ff00";
+        ctx.font = fontSize + "px monospace";
 
-            drops.forEach((y, index) => {
-                const text = letters[Math.floor(Math.random() * letters.length)];
-                ctx.fillText(text, index * fontSize, y * fontSize);
+        drops.forEach((y, index) => {
+          const text = letters[Math.floor(Math.random() * letters.length)];
+          ctx.fillText(text, index * fontSize, y * fontSize);
 
-                if (y * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[index] = 0;
-                }
+          if (y * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[index] = 0;
+          }
 
-                drops[index]++;
-            });
-        }
+          drops[index]++;
+        });
+      }
 
-        setInterval(drawMatrix, 50);
-
+      setInterval(drawMatrix, 50);
     </script>
-</body>
+  </body>
 </html>
